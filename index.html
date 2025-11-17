@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Daily Expense Tracker</h2>
+
+      <div class="form">
+        <input type="number" id="amount" placeholder="Amount" />
+        <input
+          type="text"
+          id="category"
+          placeholder="Category (Food, Transport...)"
+        />
+        <input type="date" id="date" />
+        <button id="addExpenseBtn">Add Expense</button>
+      </div>
+
+      <div class="totals">
+        <h3>Total Spent: $<span id="total">0</span></h3>
+      </div>
+
+      <table id="expenseTable">
+        <thead>
+          <tr>
+            <th>Amount ($)</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <button id="exportBtn">Export CSV</button>
+
+      <canvas id="categoryChart" width="400" height="200"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
