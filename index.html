@@ -3,33 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daily Expense Tracker</title>
+    <title>Daily Expense Tracker - Pakistan</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div class="container">
-      <h2>Daily Expense Tracker</h2>
+      <h1>Daily Expense Tracker</h1>
 
       <div class="form">
-        <input type="number" id="amount" placeholder="Amount" />
-        <input
-          type="text"
-          id="category"
-          placeholder="Category (Food, Transport...)"
-        />
+        <input type="number" id="amount" placeholder="Enter Amount" />
+        <select id="category">
+          <option value="">Select Category</option>
+          <option value="Food & Beverages">Food & Beverages</option>
+          <option value="Transport">Transport</option>
+          <option value="Bills & Utilities">Bills & Utilities</option>
+          <option value="Education">Education</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Groceries">Groceries</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Shopping">Shopping</option>
+          <option value="House Rent / Mortgage">House Rent / Mortgage</option>
+          <option value="Internet & Mobile">Internet & Mobile</option>
+          <option value="Investments & Savings">Investments & Savings</option>
+          <option value="Other">Other</option>
+        </select>
         <input type="date" id="date" />
         <button id="addExpenseBtn">Add Expense</button>
       </div>
 
-      <div class="totals">
-        <h3>Total Spent: $<span id="total">0</span></h3>
-      </div>
+      <h2>Total Spending: PKR <span id="total">0</span></h2>
 
       <table id="expenseTable">
         <thead>
           <tr>
-            <th>Amount ($)</th>
+            <th>Amount</th>
             <th>Category</th>
             <th>Date</th>
             <th>Action</th>
@@ -38,9 +46,8 @@
         <tbody></tbody>
       </table>
 
-      <button id="exportBtn">Export CSV</button>
-
-      <canvas id="categoryChart" width="400" height="200"></canvas>
+      <h2>Category Breakdown</h2>
+      <canvas id="categoryChart"></canvas>
     </div>
 
     <script src="script.js"></script>

@@ -1,11 +1,9 @@
-// Select DOM elements
 const amountInput = document.getElementById("amount");
 const categoryInput = document.getElementById("category");
 const dateInput = document.getElementById("date");
 const addExpenseBtn = document.getElementById("addExpenseBtn");
 const expenseTableBody = document.querySelector("#expenseTable tbody");
 const totalSpan = document.getElementById("total");
-const exportBtn = document.getElementById("exportBtn");
 const ctx = document.getElementById("categoryChart").getContext("2d");
 
 let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
@@ -61,41 +59,18 @@ function renderExpenses() {
 
     expenses.forEach((exp, index) => {
         total += exp.amount;
-
         const row = document.createElement("tr");
 
-        // Create cells
-        const amountTd = document.createElement("td");
-        amountTd.textContent = exp.amount.toFixed(2);
-
-        const categoryTd = document.createElement("td");
-        categoryTd.textContent = exp.category;
-
-        const dateTd = document.createElement("td");
-        dateTd.textContent = exp.date;
-
-        const actionTd = document.createElement("td");
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.addEventListener("click", () => deleteExpense(index));
-        actionTd.appendChild(deleteBtn);
-
-        // Append cells to row
-        row.appendChild(amountTd);
-        row.appendChild(categoryTd);
-        row.appendChild(dateTd);
-        row.appendChild(actionTd);
-
+        row.innerHTML = `
+            <td>${exp.amount.toFixed(2)}</td>
+            <td>${exp.category}</td>
+            <td>${exp.date}</td>
+            <td><button class="delete-btn" onclick="deleteExpense(${index})">Delete</button></td>
+        `;
         expenseTableBody.appendChild(row);
     });
 
     totalSpan.textContent = total.toFixed(2);
-
-    if (total > 500) { // example overspending alert
-        totalSpan.style.color = 'red';
-    } else {
-        totalSpan.style.color = 'black';
-    }
 }
 
 // Delete Expense
@@ -119,26 +94,6 @@ function updateChart() {
     categoryChart.data.datasets[0].backgroundColor = Object.keys(categoryData).map(() => getRandomColor());
     categoryChart.update();
 }
-
-// Export CSV
-exportBtn.addEventListener("click", () => {
-    if (expenses.length === 0) return alert("No expenses to export");
-
-    const headers = ["Amount", "Category", "Date"];
-    const rows = expenses.map(exp => [exp.amount, exp.category, exp.date]);
-
-    let csvContent = "data:text/csv;charset=utf-8,"
-        + headers.join(",") + "\n"
-        + rows.map(e => e.join(",")).join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "expenses.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-});
 
 // Initial render
 renderExpenses();
